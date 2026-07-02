@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Union Path Reading | Manifest Your Union</title>
+<meta name="description" content="A private reading for Manifest Your Union members — discover exactly where you are on your journey and the lessons to start with today." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Poppins:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@1,500&display=swap" rel="stylesheet" />
+
+<style>
+  html, body { margin: 0; padding: 0; background: #150B29; }
+  #root { min-height: 100vh; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<!-- React 18 (production builds) -->
+<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<!-- Babel standalone: transforms the JSX below directly in the browser -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.24.7/babel.min.js"></script>
+
+<script type="text/babel">
+const { useState, useMemo } = React;
+
+
+/* ============================================================
+   THE UNION PATH READING — v2
+   Built for newly-enrolled Premium members: a short diagnostic
+   that shows exactly where to start inside Manifest Your Union,
+   with real classroom links, a matching Inner Union Vault replay,
+   and (only for earlier-stage results) a nod to Foundations for
+   Inner Union as an optional companion course.
+   ============================================================ */
+
+const INK = "#F5F1E8";
+const BG_DEEP = "#150B29";
+const BG_MID = "#2C1B4E";
+const VIOLET_SOFT = "#B8AAD9";
+const GOLD = "#CBA966";
+const GOLD_LIGHT = "#E9D9AE";
+const ROSE = "#B97E86";
+const TINT = "#EFEBF9";
+
+const VAULT_URL = "https://www.skool.com/union/classroom/3260f44f?md=582da8a70b534410857d01e08b57506f";
+const FOUNDATIONS_URL = "https://www.skool.com/union/classroom/07a7f557?md=c460496c9af045ca991e473173127226";
+const PRIVACY_URL = "https://docs.google.com/document/d/12oUQEXXesDmVw_XEZH-GEc8NVbtFYyLYf3359hvxyFE/edit?usp=sharing";
+const TERMS_URL = "https://docs.google.com/document/d/1i395On2ZByesCyRaIDocu1aIguhVxuHBQ1l_nPfVReQ/edit?usp=sharing";
+
+const RATING = [
+  { v: 0, label: "Not true for me" },
+  { v: 1, label: "A little true" },
+  { v: 2, label: "Often true" },
+  { v: 3, label: "Very true — this is exactly where I am" },
+];
+
+const PHASES = [
+  {
+    id: "clarity",
+    module: 1,
+    icon: "◈",
+    resultName: "The Soul Clarity Seeker",
+    tagline: "Module 1 · Understanding Soul Connections & Divine Union",
+    color: VIOLET_SOFT,
+    insight: `you're standing at the very beginning of the path — and that is sacred, not small. Right now, the most loving thing you can do for yourself is get clear: clear on what your past connections were really here to teach you, clear on the karmic loops that keep repeating, and clear on your own truth instead of everyone else's definitions of "twin flame" or "soulmate." Clarity is the ground everything else gets built on.`,
+    lessons: [
+      {
+        mod: 1, lesson: 1,
+        title: "Why You Chose This Path",
+        summary: "Soul contracts, sacred love & the purpose of your relationships — and why your soul chose this journey in the first place.",
+        why: "This reframes your whole journey around soul purpose instead of chasing outside validation. It's the emotional entry point for everything that follows.",
+        apply: "Journal on your own soul contract using the lesson prompts, and notice which labels (twin flame, soulmate, karmic) you've been over-identifying with.",
+        link: "https://www.skool.com/union/classroom/6bd2fa96?md=b0dc61e87e5f4c6ca30db7de7be7eaee",
+      },
+      {
+        mod: 1, lesson: 2,
+        title: "Karmic Patterns: Spot Them, Heal Them, Break the Cycle",
+        summary: "What karmic patterns actually are, where they come from, and the 3-step CLEAR Method™ — Clarity, release, Embodiment.",
+        why: "This hands you an actual repeatable process, not just insight. You can use it any time you notice yourself back in a familiar loop.",
+        apply: "Run the CLEAR Method on one repeating pattern this week, and take one small new action as a result.",
+        link: "https://www.skool.com/union/classroom/6bd2fa96?md=98b196f184a74fd084c45fabe9d1f949",
+      },
+      {
+        mod: 1, lesson: 3,
+        title: "Releasing Attachment & Opening to Present-Moment Union",
+        summary: "A lesson in soul trust — releasing attachment to a specific person, outcome, or timeline.",
+        why: "This is what makes room for peace right now, instead of putting your life on hold for a future date that hasn't arrived yet.",
+        apply: "Practice the present-moment union exercise any time you catch yourself fixating on timing or a specific outcome.",
+        link: "https://www.skool.com/union/classroom/6bd2fa96?md=327c624f2a9840f084b253bb6890c92d",
+      },
+    ],
+    vault: {
+      title: "Twin Flame Akashic Records Healing Class",
+      date: "2024 · TF Akashic Records Healing Class",
+      blurb: "A guided Akashic Records + Violet Flame healing to clear repeating patterns, karmic loops, and past-life imprints at the root — a perfect companion to your Module 1 work.",
+    },
+    showFoundations: true,
+  },
+  {
+    id: "healing",
+    module: 2,
+    icon: "☾",
+    resultName: "The Inner Healer",
+    tagline: "Module 2 · Rebuilding the Relationship With Yourself",
+    color: TINT,
+    insight: `you've made peace with the story — now your soul is asking you to meet the feeling underneath it. This is the deep-tissue work: your triggers, your inner child, the protector parts that step in before you even decide to react. It can feel like the hardest chapter, but it's also where the most permanent shifts happen. Every ounce of tenderness you give yourself here reshapes the frequency you'll meet your union from.`,
+    lessons: [
+      {
+        mod: 2, lesson: 1,
+        title: "Why You Feel So Bad: Triggers, Self-Sabotage & the Power of Awareness",
+        summary: "Why you keep attracting the same patterns, what triggers and self-sabotage really are, and how childhood wounds create blocks, fear, and shutdown.",
+        why: "Awareness is step one — you can't shift a pattern you can't yet see clearly.",
+        apply: "Track your triggers this week without judgment. Just notice them and name what happened.",
+        link: "https://www.skool.com/union/classroom/6bd2fa96?md=e36185d478ed4703bb2cbd4fd309f3fe",
+      },
+      {
+        mod: 2, lesson: 2,
+        title: "Fragmentation, Parts & the Inner Child",
+        summary: "You are not broken — you are made of many sacred selves. Learn how you split during trauma, and how to recognize your inner child and protector parts.",
+        why: "This is the foundational framework everything else in your healing builds on.",
+        apply: "Do the 'decode a recent trigger' journaling activity to name the different parts of you that showed up.",
+        link: "https://www.skool.com/union/classroom/6bd2fa96?md=da82dd8abc014cd98ca3d3de9e4a2a86",
+      },
+      {
+        mod: 2, lesson: 3,
+        title: "The Divine Reparenting Method™",
+        summary: "A soul-led, step-by-step process to soothe triggers, meet your protector parts with understanding, and reconnect with your inner child.",
+        why: "This turns insight into a real-time practice you can actually use in the middle of a triggered moment.",
+        apply: "Use the Method the next time you feel triggered, instead of reacting on autopilot.",
+        link: "https://www.skool.com/union/classroom/6bd2fa96?md=d12ff0fbcf8141a5b282f55562996358",
+      },
+      {
+        mod: 2, lesson: 4,
+        title: "Daily Inner Child Ritual",
+        summary: "A simple 5-minute daily check-in practice to build a real, consistent relationship with your inner child.",
+        why: "Consistency over intensity — this is what makes healing sustainable instead of a one-time event.",
+        apply: "Try it for 5 minutes a day for one week and notice what starts to shift.",
+        link: "https://www.skool.com/union/classroom/6bd2fa96?md=0abc0df6c29d47d3ab530b77a117569b",
+      },
+    ],
+    vault: {
+      title: "Twin Flame Healing + Inner Union Masterclass",
+      date: "12/30/25 · Coaching Call Replay",
+      blurb: "A deep, trauma-informed session on triggers, protector parts, and re-parenting the inner child — Internal Family Systems parts work in real time. Pairs beautifully with the Divine Reparenting Method.",
+    },
+    showFoundations: true,
+  },
+  {
+    id: "clearing",
+    module: 3,
+    icon: "✦",
+    resultName: "The Field Clearer",
+    tagline: "Module 3 · Clearing the Field for Divine Union",
+    color: GOLD_LIGHT,
+    insight: `you've done real inner child work — now it's time to clear the deeper layer underneath it: the actual beliefs about love that have been quietly running the show, some of them inherited long before you were old enough to choose them. This phase is less about "fixing" and more about releasing — family patterns, old programming, even things that were never fully yours to carry.`,
+    lessons: [
+      {
+        mod: 3, lesson: 1,
+        title: "Separation Consciousness vs. Unity Consciousness",
+        summary: "The difference between the separation mindset that's been running your old patterns and the unity consciousness that magnetizes soul-aligned love.",
+        why: "This names the exact energy you've likely been operating from, and shows you the frequency to shift into instead.",
+        apply: "Notice which consciousness you're in throughout your day, and gently choose unity whenever you catch separation.",
+        link: "https://www.skool.com/union/classroom/6bd2fa96?md=548c0df49c514494aeaaa49f57fd1426",
+      },
+      {
+        mod: 3, lesson: 2,
+        title: "Mapping Your Love Wounds + Beliefs",
+        summary: "A roadmap to uncover the specific beliefs about love that have been quietly blocking you.",
+        why: "You can't rewrite a belief you haven't identified yet — this makes the invisible visible.",
+        apply: "Complete the mapping workbook and choose one belief to consciously rewrite this week.",
+        link: "https://www.skool.com/union/classroom/6bd2fa96?md=a598f6013b3643afb7ac731385882582",
+      },
+      {
+        mod: 3, lesson: 3,
+        title: "Clearing Family & Childhood Beliefs with EFT",
+        summary: "Releasing the roots of fear and inherited beliefs at the family and childhood level using EFT tapping.",
+        why: "Tapping works with your body and nervous system, not just your mind — beliefs actually release instead of just intellectually shifting.",
+        apply: "New to tapping? Start with the intro lesson below first, then run the script on one specific family belief.",
+        link: "https://www.skool.com/union/classroom/6bd2fa96?md=68b2016bc7b745ffa418b236cbd0ebdb",
+        secondaryLabel: "New to tapping? Start here first",
+        secondaryLink: "https://www.skool.com/union/classroom/6bd2fa96?md=9f17284bfcc34c938b5715c7e58d55a5",
+      },
+      {
+        mod: 3, lesson: 4,
+        title: "Clearing Past-Life, Spiritual & Societal Programming",
+        summary: "Clear beliefs and old contracts that go beyond this lifetime — past-life, ancestral, and societal programming around love.",
+        why: "Some blocks were never fully yours to begin with — this makes space for what isn't serving you to finally leave.",
+        apply: "Use the Clearing Statements process on anything that feels older or bigger than your own personal story.",
+        link: "https://www.skool.com/union/classroom/6bd2fa96?md=6ddaf41db06c4421b48af7c89c28c5b9",
+      },
+    ],
+    vault: {
+      title: "Releasing Perfectionism Compassion Key Replay",
+      date: "2.9.2026 · Coaching Call Replay",
+      blurb: "A gentle Compassion Key clearing on perfectionism, worthiness, and the pressure to 'heal faster' — working directly with beliefs like 'I don't need to fix myself to be loved.' A direct extension of your Module 3 belief-mapping work.",
+    },
+    showFoundations: false,
+  },
+  {
+    id: "calling",
+    module: 4,
+    icon: "❖",
+    resultName: "The Ready Soul",
+    tagline: "Module 4 · Calling in Your Divine Counterpart",
+    color: ROSE,
+    insight: `your inner work is genuinely deep — this phase is about translating it into the real, lived practice of calling love in and receiving it. You know how to hold yourself now; the next layer is getting specific about what you're calling in, staying embodied in that frequency, and learning to stay open in real communication. You're closer than you think — this is refinement, not repair.`,
+    lessons: [
+      {
+        mod: 4, lesson: 1,
+        title: "Collapse the Old Timelines",
+        summary: "Release the past and consciously choose your new path of love.",
+        why: "This clears the energetic runway so a genuinely new timeline actually has room to come in.",
+        apply: "Do the visualization exercise, repeating it for 2–3 old patterns or timelines as needed.",
+        link: "https://www.skool.com/union/classroom/6bd2fa96?md=f01cf48ca02f4df1b63814896249a255",
+      },
+      {
+        mod: 4, lesson: 2,
+        title: "Quantum Embodiment Visualization",
+        summary: "Anchor your in-union frequency and collapse timelines by embodying the version of you who already has this love.",
+        why: "This is a somatic practice — the shift lands in your body and nervous system, not only your mindset.",
+        apply: "Listen to the meditation and fill out the Daily Journaling Worksheet from your in-union self's perspective.",
+        link: "https://www.skool.com/union/classroom/6bd2fa96?md=55b55b9514604a88821242ccac44b468",
+      },
+      {
+        mod: 4, lesson: 3,
+        title: "Send the Signal to the Universe",
+        summary: "Declare your desire, build your relationship container, and invite love in with a clear, loving signal.",
+        why: "This clarifies exactly what you're calling in, so you can actually recognize alignment when it shows up.",
+        apply: "Complete the guided workbook — and if you're feeling creative, try the optional vision board or playlist activity.",
+        link: "https://www.skool.com/union/classroom/6bd2fa96?md=d2113524ac0b42d59b2c96fdc1c24454",
+      },
+      {
+        mod: 4, lesson: 4,
+        title: "Open to Intimacy + Practice Communication",
+        summary: "Soften protective patterns, open to true intimacy, and communicate from compassion instead of defense.",
+        why: "Vulnerability is the portal, communication is the pathway — this is what makes real closeness safe and sustainable.",
+        apply: "Practice one communication skill in a lower-stakes relationship this week, before you need it in a high-stakes moment.",
+        link: "https://www.skool.com/union/classroom/6bd2fa96?md=7d3d20147c8943989d4788700c99a5bd",
+      },
+    ],
+    vault: {
+      title: "Coaching Call Replay — Communication",
+      date: "3.1.2026 · Anxiety, Timekeeper Grounding, DM Insecurity + Telepathy",
+      blurb: "Real talk on overthinking with your DM, the fear of 'chasing' when you express your feelings, and Divine Masculine insecurity — a direct companion to Open to Intimacy + Practice Communication.",
+    },
+    showFoundations: false,
+  },
+];
+
+const GRADUATE = {
+  id: "graduate",
+  icon: "✺",
+  resultName: "Living As Your Union Self",
+  tagline: "You're already embodying this frequency",
+  color: GOLD,
+  insight: `across the board, this reading shows you already living remarkably close to union consciousness. You're not waiting for this love anymore; you're becoming it. This is a moment to celebrate yourself and stay in devoted practice, not to search for what's "wrong." Your next right step is the final lesson of Manifest Your Union — living daily as the version of you who already has it.`,
+  lessons: [
+    {
+      mod: 4, lesson: 5,
+      title: "Live as the Version of You Who Already Has It",
+      summary: "The final lesson of Manifest Your Union — taking aligned action as your future self and staying grounded in your vision, even without proof.",
+      why: "This is your integration and send-off lesson: the daily practice that carries this frequency for the long haul.",
+      apply: "Choose one small daily action your 'in-union self' would take, and take it today.",
+      link: "https://www.skool.com/union/classroom/6bd2fa96?md=6a05ec533606426e964b968b934ec401",
+    },
+  ],
+  vault: {
+    title: "Violet Flame Healing Replay | Receiving Union Now",
+    date: "1.5.2026 · Violet Flame Healing Call",
+    blurb: "A Violet Flame session on healing self-worth wounds, clearing old stories of unworthiness, and releasing chapters created from survival or waiting — a beautiful practice for staying open to receiving.",
+  },
+  showFoundations: false,
+};
+
+const QUESTIONS = [
+  { id: "q1", phase: "clarity", text: "I still feel confused about which label — twin flame, soulmate, karmic — actually applies to my connection." },
+  { id: "q2", phase: "clarity", text: "When I think about past relationships, I get stuck in \"why did this happen to me\" instead of feeling clarity or peace." },
+  { id: "q3", phase: "clarity", text: "I notice the same painful pattern repeating across different relationships, and I don't fully understand why." },
+  { id: "q4", phase: "clarity", text: "I spend more energy researching stages and timelines than I do trusting my own soul's truth." },
+  { id: "q5", phase: "healing", text: "When I get triggered, I react before I even notice what's happening — shutting down, over-explaining, or lashing out." },
+  { id: "q6", phase: "healing", text: "I'm far more compassionate with my friends than I am with myself." },
+  { id: "q7", phase: "healing", text: "I know I have an inner child who needs love, but I don't have a real, regular practice of turning toward her." },
+  { id: "q8", phase: "healing", text: "Old wounds from childhood or past relationships still hijack my sense of peace in the present moment." },
+  { id: "q9", phase: "clearing", text: "I can feel there are still old beliefs about love running underneath my thoughts, even when I try to think positively." },
+  { id: "q10", phase: "clearing", text: "Certain family or childhood dynamics around love still show up in how I react in relationships today." },
+  { id: "q11", phase: "clearing", text: "I sense some of my blocks might go deeper than this lifetime — old, familiar, ancestral, or 'not fully mine' pain." },
+  { id: "q12", phase: "clearing", text: "I still feel like I'm in separation and scarcity mode about love more often than trust and unity." },
+  { id: "q13", phase: "calling", text: "I still find myself replaying old timelines or 'what could have beens' instead of fully choosing my new path forward." },
+  { id: "q14", phase: "calling", text: "I haven't yet gotten fully clear and specific about what I'm actually calling in — the qualities, the feeling, the way it needs to feel." },
+  { id: "q15", phase: "calling", text: "The idea of real intimacy — truly being seen — still brings up fear or the urge to protect myself." },
+  { id: "q16", phase: "calling", text: "I'm ready to live and act as my in-union self daily, but I don't have a consistent practice for embodying that." },
+];
+
+function Compass({ progress = 0, highlight = null, size = 132 }) {
+  const r = 52;
+  const c = 2 * Math.PI * r;
+  const quarter = c / 4;
+  const gap = 3;
+  return (
+    <svg width={size} height={size} viewBox="0 0 132 132" className="upr-compass">
+      <circle cx="66" cy="66" r={r} fill="none" stroke="rgba(245,241,232,0.10)" strokeWidth="10" />
+      {PHASES.map((p, i) => {
+        const isLit = highlight ? p.id === highlight : i * quarter < progress * c;
+        return (
+          <circle
+            key={p.id}
+            cx="66" cy="66" r={r}
+            fill="none"
+            stroke={isLit ? p.color : "rgba(245,241,232,0.10)"}
+            strokeWidth="10"
+            strokeDasharray={`${quarter - gap} ${c - quarter + gap}`}
+            strokeDashoffset={-(i * quarter)}
+            strokeLinecap="round"
+            transform="rotate(-90 66 66)"
+            style={{
+              transition: "stroke 0.6s ease, opacity 0.6s ease",
+              opacity: isLit ? 1 : 0.55,
+              filter: isLit && highlight ? `drop-shadow(0 0 6px ${p.color})` : "none",
+            }}
+          />
+        );
+      })}
+      <circle cx="66" cy="66" r="34" fill="rgba(245,241,232,0.05)" stroke="rgba(203,169,102,0.4)" strokeWidth="1" />
+      <text x="66" y="72" textAnchor="middle" fontSize="26" fill={GOLD_LIGHT} style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+        ✦
+      </text>
+    </svg>
+  );
+}
+
+function Footer() {
+  return (
+    <div className="upr-footer">
+      <span>Luana Spirits Consulting</span>
+      <span className="upr-footer-dot">·</span>
+      <a href="mailto:luana@luanaspirits.com">luana@luanaspirits.com</a>
+      <span className="upr-footer-dot">·</span>
+      <a href={PRIVACY_URL} target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+      <span className="upr-footer-dot">·</span>
+      <a href={TERMS_URL} target="_blank" rel="noopener noreferrer">Terms &amp; Conditions</a>
+      <span className="upr-footer-dot">·</span>
+      <span>© 2026</span>
+    </div>
+  );
+}
+
+function UnionPathReading() {
+  const [screen, setScreen] = useState("intro");
+  const [index, setIndex] = useState(0);
+  const [answers, setAnswers] = useState({});
+  const [name, setName] = useState("");
+
+  const displayName = name.trim() || "beautiful soul";
+  const progress = index / QUESTIONS.length;
+
+  const result = useMemo(() => {
+    if (screen !== "result") return null;
+    const scores = { clarity: 0, healing: 0, clearing: 0, calling: 0 };
+    Object.entries(answers).forEach(([qid, val]) => {
+      const q = QUESTIONS.find((q) => q.id === qid);
+      if (q) scores[q.phase] += val;
+    });
+    const total = Object.values(scores).reduce((a, b) => a + b, 0);
+    if (total <= 14) return { phase: GRADUATE, scores, total };
+    let top = PHASES[0];
+    PHASES.forEach((p) => {
+      if (scores[p.id] > scores[top.id]) top = p;
+    });
+    return { phase: top, scores, total };
+  }, [screen, answers]);
+
+  function selectAnswer(val) {
+    const q = QUESTIONS[index];
+    setAnswers((prev) => ({ ...prev, [q.id]: val }));
+    if (index < QUESTIONS.length - 1) {
+      setTimeout(() => setIndex((i) => i + 1), 220);
+    } else {
+      setTimeout(() => setScreen("loading"), 220);
+      setTimeout(() => setScreen("result"), 2000);
+    }
+  }
+
+  function goBack() {
+    if (index > 0) setIndex((i) => i - 1);
+  }
+
+  function restart() {
+    setAnswers({});
+    setIndex(0);
+    setScreen("intro");
+  }
+
+  const currentQ = QUESTIONS[index];
+
+  return (
+    <div className="upr-root">
+      <style>{`
+        .upr-root {
+          min-height: 100vh;
+          background: radial-gradient(ellipse at 50% -10%, ${BG_MID} 0%, ${BG_DEEP} 60%);
+          color: ${INK};
+          font-family: 'Poppins', sans-serif;
+          padding: 48px 20px 24px;
+          position: relative;
+          overflow: hidden;
+          display: flex;
+          flex-direction: column;
+        }
+        .upr-root::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background-image:
+            radial-gradient(1px 1px at 12% 18%, rgba(245,241,232,0.5) 50%, transparent),
+            radial-gradient(1px 1px at 82% 12%, rgba(245,241,232,0.4) 50%, transparent),
+            radial-gradient(1.5px 1.5px at 68% 72%, rgba(203,169,102,0.5) 50%, transparent),
+            radial-gradient(1px 1px at 25% 85%, rgba(245,241,232,0.4) 50%, transparent),
+            radial-gradient(1px 1px at 92% 60%, rgba(245,241,232,0.35) 50%, transparent),
+            radial-gradient(1.5px 1.5px at 45% 35%, rgba(203,169,102,0.4) 50%, transparent);
+          pointer-events: none;
+        }
+        .upr-shell {
+          max-width: 560px;
+          margin: 0 auto;
+          position: relative;
+          z-index: 1;
+          flex: 1;
+          width: 100%;
+        }
+        .upr-eyebrow {
+          font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase;
+          color: ${GOLD}; text-align: center; margin-bottom: 14px;
+        }
+        .upr-h1 {
+          font-family: 'Playfair Display', serif; font-weight: 700;
+          font-size: clamp(30px, 6vw, 44px); text-align: center; line-height: 1.15;
+          margin: 0 0 16px; color: ${INK};
+        }
+        .upr-h1 em { font-style: italic; color: ${GOLD_LIGHT}; }
+        .upr-sub {
+          text-align: center; font-size: 15.5px; line-height: 1.7;
+          color: rgba(245,241,232,0.78); max-width: 440px; margin: 0 auto 32px; font-weight: 300;
+        }
+        .upr-center { display: flex; justify-content: center; margin: 8px 0 30px; }
+        .upr-name-label {
+          display: block; text-align: center; font-size: 12px; letter-spacing: 0.06em;
+          color: rgba(245,241,232,0.65); margin-bottom: 10px;
+        }
+        .upr-name-input {
+          display: block; width: 100%; max-width: 320px; margin: 0 auto 22px;
+          padding: 14px 20px; border-radius: 999px; text-align: center;
+          background: rgba(245,241,232,0.06); border: 1px solid rgba(245,241,232,0.22);
+          color: ${INK}; font-family: 'Poppins', sans-serif; font-size: 15px; outline: none;
+          transition: border-color 0.2s ease, background 0.2s ease;
+        }
+        .upr-name-input::placeholder { color: rgba(245,241,232,0.35); }
+        .upr-name-input:focus { border-color: ${GOLD}; background: rgba(245,241,232,0.09); }
+        .upr-greeting {
+          text-align: center; font-family: 'Cormorant Garamond', serif; font-style: italic;
+          font-size: 15px; color: rgba(245,241,232,0.55); margin: 0 0 10px; letter-spacing: 0.02em;
+        }
+        .upr-btn {
+          display: block; margin: 0 auto; padding: 16px 40px;
+          background: linear-gradient(135deg, ${GOLD} 0%, #A9884E 100%);
+          color: #1B1108; border: none; border-radius: 999px;
+          font-weight: 600; font-size: 14.5px; letter-spacing: 0.03em; cursor: pointer;
+          box-shadow: 0 8px 24px rgba(203,169,102,0.28);
+          transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        .upr-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(203,169,102,0.4); }
+        .upr-btn-ghost { background: transparent; border: 1px solid rgba(245,241,232,0.28); color: ${INK}; box-shadow: none; }
+        .upr-btn-ghost:hover { border-color: ${GOLD}; box-shadow: none; }
+        .upr-legend { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; margin-top: 22px; }
+        .upr-legend-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: rgba(245,241,232,0.65); }
+        .upr-dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+
+        .upr-progresswrap { display: flex; flex-direction: column; align-items: center; margin-bottom: 30px; }
+        .upr-progress-label { margin-top: 10px; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(245,241,232,0.55); }
+        .upr-phase-tag { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: ${GOLD_LIGHT}; text-align: center; margin-bottom: 10px; }
+        .upr-qcard {
+          background: rgba(245,241,232,0.05); border: 1px solid rgba(245,241,232,0.12);
+          border-radius: 20px; padding: 34px 28px; backdrop-filter: blur(6px);
+        }
+        .upr-qtext {
+          font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 22px;
+          line-height: 1.55; text-align: center; color: ${INK}; margin: 0 0 30px;
+        }
+        .upr-options { display: flex; flex-direction: column; gap: 10px; }
+        .upr-opt {
+          display: flex; align-items: center; gap: 14px; padding: 14px 18px; border-radius: 14px;
+          border: 1px solid rgba(245,241,232,0.16); background: rgba(245,241,232,0.02);
+          color: ${INK}; font-size: 14px; font-weight: 400; text-align: left; cursor: pointer;
+          transition: all 0.2s ease;
+        }
+        .upr-opt:hover { border-color: ${GOLD}; background: rgba(203,169,102,0.10); transform: translateX(3px); }
+        .upr-opt-num {
+          width: 26px; height: 26px; border-radius: 50%; border: 1px solid rgba(245,241,232,0.3);
+          display: flex; align-items: center; justify-content: center; font-size: 12px; flex-shrink: 0;
+        }
+        .upr-navrow { display: flex; justify-content: space-between; margin-top: 20px; }
+        .upr-link-btn { background: none; border: none; color: rgba(245,241,232,0.5); font-size: 12.5px; cursor: pointer; letter-spacing: 0.04em; }
+        .upr-link-btn:hover { color: ${GOLD_LIGHT}; }
+        .upr-link-btn:disabled { opacity: 0; cursor: default; }
+
+        .upr-loading { text-align: center; padding: 90px 0; }
+        .upr-loading-text { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 19px; color: ${GOLD_LIGHT}; margin-top: 22px; animation: upr-pulse 1.6s ease-in-out infinite; }
+        @keyframes upr-pulse { 0%,100% { opacity: 0.5; } 50% { opacity: 1; } }
+        .upr-spin { animation: upr-spin 3s linear infinite; }
+        @keyframes upr-spin { to { transform: rotate(360deg); } }
+
+        .upr-result-icon { text-align: center; font-size: 34px; margin-bottom: 6px; }
+        .upr-result-tag { text-align: center; font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; color: ${GOLD}; margin-bottom: 6px; }
+        .upr-result-name { font-family: 'Playfair Display', serif; font-weight: 700; font-size: clamp(26px, 5.5vw, 36px); text-align: center; margin: 0 0 6px; }
+        .upr-result-module { text-align: center; font-size: 13px; color: rgba(245,241,232,0.55); margin: 0 0 22px; letter-spacing: 0.03em; }
+        .upr-insight {
+          font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 18px; line-height: 1.75;
+          text-align: center; color: rgba(245,241,232,0.9); max-width: 470px; margin: 0 auto 34px;
+        }
+        .upr-section-label { font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: ${GOLD_LIGHT}; text-align: center; margin: 40px 0 18px; }
+        .upr-lesson-card {
+          background: rgba(245,241,232,0.05); border: 1px solid rgba(245,241,232,0.14);
+          border-left: 3px solid ${GOLD}; border-radius: 14px; padding: 20px 22px; margin-bottom: 14px;
+        }
+        .upr-lesson-tag { font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: ${GOLD}; margin-bottom: 6px; }
+        .upr-lesson-title { font-family: 'Playfair Display', serif; font-weight: 600; font-size: 18px; margin: 0 0 8px; color: ${INK}; }
+        .upr-lesson-row { display: flex; gap: 8px; margin-bottom: 8px; }
+        .upr-lesson-row-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(203,169,102,0.85); flex-shrink: 0; padding-top: 1px; min-width: 62px; }
+        .upr-lesson-row-text { font-size: 13.5px; line-height: 1.6; color: rgba(245,241,232,0.85); margin: 0; }
+        .upr-lesson-link {
+          display: inline-block; margin-top: 10px; padding: 9px 20px; border-radius: 999px;
+          background: rgba(203,169,102,0.16); border: 1px solid rgba(203,169,102,0.5);
+          color: ${GOLD_LIGHT}; text-decoration: none; font-size: 12.5px; font-weight: 600;
+        }
+        .upr-lesson-link:hover { background: rgba(203,169,102,0.28); }
+        .upr-lesson-link-secondary {
+          display: inline-block; margin-top: 8px; margin-left: 8px; font-size: 12px; color: rgba(245,241,232,0.55); text-decoration: underline;
+        }
+
+        .upr-vault-card {
+          margin-top: 30px; padding: 22px 22px; border-radius: 16px;
+          background: linear-gradient(135deg, rgba(139,123,184,0.10), rgba(203,169,102,0.10));
+          border: 1px solid rgba(184,170,217,0.35);
+        }
+        .upr-vault-eyebrow { font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: ${VIOLET_SOFT}; margin-bottom: 8px; }
+        .upr-vault-title { font-family: 'Playfair Display', serif; font-size: 18px; margin: 0 0 4px; }
+        .upr-vault-date { font-size: 12px; color: rgba(245,241,232,0.5); margin: 0 0 10px; font-style: italic; }
+        .upr-vault-blurb { font-size: 13.5px; line-height: 1.6; color: rgba(245,241,232,0.85); margin: 0 0 12px; }
+
+        .upr-foundations-card {
+          margin-top: 16px; padding: 18px 22px; border-radius: 16px;
+          background: rgba(245,241,232,0.04); border: 1px dashed rgba(245,241,232,0.25);
+        }
+        .upr-foundations-eyebrow { font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(245,241,232,0.5); margin-bottom: 8px; }
+        .upr-foundations-text { font-size: 13px; line-height: 1.6; color: rgba(245,241,232,0.75); margin: 0 0 12px; }
+
+        .upr-bottomrow { display: flex; gap: 12px; justify-content: center; margin-top: 36px; flex-wrap: wrap; }
+
+        .upr-footer {
+          margin-top: 40px; padding-top: 18px; border-top: 1px solid rgba(245,241,232,0.08);
+          text-align: center; font-size: 10.5px; color: rgba(245,241,232,0.4);
+          display: flex; justify-content: center; flex-wrap: wrap; gap: 6px; letter-spacing: 0.01em;
+        }
+        .upr-footer a { color: rgba(245,241,232,0.45); text-decoration: underline; }
+        .upr-footer a:hover { color: ${GOLD_LIGHT}; }
+        .upr-footer-dot { opacity: 0.5; }
+      `}</style>
+
+      <div className="upr-shell">
+        {screen === "intro" && (
+          <>
+            <div className="upr-eyebrow">Manifest Your Union · Your Premium Starting Point</div>
+            <h1 className="upr-h1">The <em>Union Path</em> Reading</h1>
+            <p className="upr-sub">
+              Welcome in, beautiful soul. Sixteen gentle questions to reveal exactly where you
+              stand in Manifest Your Union right now — and the specific lessons, plus a matching
+              Vault replay, to start with today.
+            </p>
+            <div className="upr-center"><Compass progress={0} /></div>
+            <label className="upr-name-label" htmlFor="upr-name-input">What's your first name?</label>
+            <input
+              id="upr-name-input"
+              className="upr-name-input"
+              type="text"
+              placeholder="Type your name here"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && setScreen("quiz")}
+              maxLength={30}
+            />
+            <button className="upr-btn" onClick={() => setScreen("quiz")}>
+              Begin My Reading{name.trim() ? `, ${name.trim()}` : ""}
+            </button>
+            <div className="upr-legend">
+              {PHASES.map((p) => (
+                <div className="upr-legend-item" key={p.id}>
+                  <span className="upr-dot" style={{ background: p.color }} />
+                  Module {p.module}
+                </div>
+              ))}
+            </div>
+          </>
+        )}
+
+        {screen === "quiz" && currentQ && (
+          <>
+            <div className="upr-progresswrap">
+              <Compass progress={progress} />
+              <div className="upr-progress-label">Question {index + 1} of {QUESTIONS.length}</div>
+            </div>
+            <div className="upr-phase-tag">
+              {PHASES.find((p) => p.id === currentQ.phase)?.icon}{" "}
+              {PHASES.find((p) => p.id === currentQ.phase)?.tagline}
+            </div>
+            <div className="upr-qcard">
+              <p className="upr-qtext">"{currentQ.text}"</p>
+              <div className="upr-options">
+                {RATING.map((r) => (
+                  <button key={r.v} className="upr-opt" onClick={() => selectAnswer(r.v)}>
+                    <span className="upr-opt-num">{r.v}</span>
+                    {r.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div className="upr-navrow">
+              <button className="upr-link-btn" onClick={goBack} disabled={index === 0}>← Previous</button>
+              <button className="upr-link-btn" onClick={restart}>Start over</button>
+            </div>
+          </>
+        )}
+
+        {screen === "loading" && (
+          <div className="upr-loading">
+            <div className="upr-spin" style={{ display: "inline-block" }}><Compass progress={1} /></div>
+            <p className="upr-loading-text">Reading your energy, {displayName}…</p>
+          </div>
+        )}
+
+        {screen === "result" && result && (
+          <>
+            <p className="upr-greeting">A reading for {displayName}</p>
+            <div className="upr-result-icon">{result.phase.icon}</div>
+            <div className="upr-result-tag">Your Current Phase</div>
+            <h1 className="upr-result-name" style={{ color: result.phase.color }}>{result.phase.resultName}</h1>
+            <p className="upr-result-module">{result.phase.tagline}</p>
+            <div className="upr-center">
+              <Compass progress={1} highlight={result.phase.id === "graduate" ? null : result.phase.id} size={110} />
+            </div>
+            <p className="upr-insight">{displayName}, {result.phase.insight}</p>
+
+            <div className="upr-section-label">✦ Your Lessons to Start With ✦</div>
+            {result.phase.lessons.map((l, i) => (
+              <div className="upr-lesson-card" key={i}>
+                <div className="upr-lesson-tag">Module {l.mod} · Lesson {l.lesson}</div>
+                <h3 className="upr-lesson-title">{l.title}</h3>
+                <div className="upr-lesson-row">
+                  <span className="upr-lesson-row-label">What it is</span>
+                  <p className="upr-lesson-row-text">{l.summary}</p>
+                </div>
+                <div className="upr-lesson-row">
+                  <span className="upr-lesson-row-label">Why now</span>
+                  <p className="upr-lesson-row-text">{l.why}</p>
+                </div>
+                <div className="upr-lesson-row">
+                  <span className="upr-lesson-row-label">Try this</span>
+                  <p className="upr-lesson-row-text">{l.apply}</p>
+                </div>
+                <a className="upr-lesson-link" href={l.link} target="_blank" rel="noopener noreferrer">Open This Lesson →</a>
+                {l.secondaryLink && (
+                  <a className="upr-lesson-link-secondary" href={l.secondaryLink} target="_blank" rel="noopener noreferrer">
+                    {l.secondaryLabel} →
+                  </a>
+                )}
+              </div>
+            ))}
+
+            <div className="upr-vault-card">
+              <div className="upr-vault-eyebrow">From the Inner Union Vault</div>
+              <h3 className="upr-vault-title">{result.phase.vault.title}</h3>
+              <p className="upr-vault-date">{result.phase.vault.date}</p>
+              <p className="upr-vault-blurb">{result.phase.vault.blurb}</p>
+              <a className="upr-lesson-link" href={VAULT_URL} target="_blank" rel="noopener noreferrer">Open the Vault →</a>
+              <p style={{ fontSize: "11.5px", color: "rgba(245,241,232,0.45)", marginTop: "8px" }}>
+                Once inside, look for this title in the left-hand list (or press Ctrl/Cmd+F to search).
+              </p>
+            </div>
+
+            {result.phase.showFoundations && (
+              <div className="upr-foundations-card">
+                <div className="upr-foundations-eyebrow">A Gentle Companion Resource</div>
+                <p className="upr-foundations-text">
+                  If you'd like extra support with the basics alongside Manifest Your Union,
+                  Foundations for Inner Union is a gentle, optional 3-day course covering
+                  nervous system regulation, inner child work, and the S.E.L.F. Method. It's not
+                  a prerequisite — just a soft companion if simplicity feels good right now.
+                </p>
+                <a className="upr-lesson-link" href={FOUNDATIONS_URL} target="_blank" rel="noopener noreferrer">Explore Foundations →</a>
+              </div>
+            )}
+
+            <div className="upr-bottomrow">
+              <button className="upr-btn upr-btn-ghost" onClick={restart}>Take It Again</button>
+            </div>
+          </>
+        )}
+      </div>
+      <Footer />
+    </div>
+  );
+}
+
+const rootEl = document.getElementById("root");
+ReactDOM.createRoot(rootEl).render(<UnionPathReading />);
+</script>
+</body>
+</html>
